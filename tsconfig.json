@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "module": "commonjs", //import/export VS require
+    "target": "ES2019", //versão ECMAScript de 2019, adptando tecnologias/ferramentas
+    "esModuleInterop": true,
+    "allowJs": true
+  }
+}
