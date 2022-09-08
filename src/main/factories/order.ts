@@ -1,7 +1,9 @@
 import { OrderController } from '../../presentation/controllers/order'
 import { Controller } from '../../presentation/protocols/controller'
+import { YupRequestValidator } from '../../utils/requestValidator'
 
 export const makeOrderController = (): Controller => {
-  const orderController = new OrderController()
+  const requestValidator = new YupRequestValidator()
+  const orderController = new OrderController(requestValidator)
   return orderController
 }
