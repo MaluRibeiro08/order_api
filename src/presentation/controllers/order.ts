@@ -10,14 +10,17 @@ export class OrderController implements Controller {
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-    return {
-      statusCode: 200,
-      body: await this.requestValidator.isValid(httpRequest.body)
+    const reqValidationResult = await this.requestValidator.isValid(httpRequest.body)
+    if (!reqValidationResult.result) {
+      return {
+        statusCode: 400,
+        body: reqValidationResult.error
+      }
+    } else {
+      return {
+        statusCode: 200,
+        body: 'Everything went okay'
+      }
     }
-
-    // return await new Promise<HttpResponse>(resolve => resolve({
-    //   statusCode: 200,
-    //   body: 'teste'
-    // }))
   }
 }
