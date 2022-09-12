@@ -19,7 +19,7 @@ export class YupRequestValidator implements RequestValidator {
 
 export const CustomerSchema = object().shape({
   customer: object().shape({
-    name: string().matches(/^[aA-zZ\s]+$/, "Costumer's name can't have numbers").required(),
+    name: string().matches(/^[aA-zZ\s]+$/, "Costumer's name can't have numbers or be empty").required(),
     document: string().matches(/^[0-9]{11}/, 'Document should have 11 numbers').required()
   }),
   items: array().of(object().shape({
@@ -27,7 +27,7 @@ export const CustomerSchema = object().shape({
     amount: number().positive().integer().min(1).required()
   })).required(),
   address: object().shape({
-    zip_code: string().matches(/^[0-9]{8}/).required(), // /^[0-9]{5}-[0-9]{3}/
+    zip_code: string().matches(/^[0-9]{8}/, 'Zip-code must have 8 digits and the must be numbers').required(), // /^[0-9]{5}-[0-9]{3}/
     house_number: string().required(),
     street: string().required(),
     neighborhood: string().required(),
