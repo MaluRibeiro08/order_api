@@ -4,9 +4,10 @@ import { RequestValidator } from '../presentation/protocols/requestValidator'
 export class YupRequestValidator implements RequestValidator {
   async isValid (reqData: string): Promise<boolean> {
     try {
-      await CustomerSchema.validate(reqData).then((sla) => { console.log(sla) })
+      await CustomerSchema.validate(reqData)
       return true
     } catch (error) {
+      console.log(error.errors)
       return error.errors
     }
   }
