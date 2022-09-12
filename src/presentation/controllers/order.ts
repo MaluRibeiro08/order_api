@@ -1,4 +1,3 @@
-import { LogMongoFileRepository } from '../../infra/log/WinstonLogger'
 import { badRequest, ok } from '../helpers/http-helper'
 import { Controller } from '../protocols/controller'
 import { HttpRequest, HttpResponse } from '../protocols/http'
@@ -14,11 +13,7 @@ export class OrderController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     const reqValidationResult = await this.requestValidator.isValid(httpRequest.body)
     if (!reqValidationResult.result) {
-      const logger = new LogMongoFileRepository()
-      const error = new Error(reqValidationResult.error)
-
-      await logger.logError(error.stack)
-      return badRequest(error)
+      return badRequest(new Error(reqValidationResult.error))
     } else {
       return ok('Everything went okay')
     }
