@@ -1,5 +1,6 @@
 import { LogErrorRepository } from '../../data/protocols/log-error-repository'
 import winston, { format } from 'winston'
+import 'winston-mongodb'
 
 export class LogMongoFileRepository implements LogErrorRepository {
   private readonly logConfiguration = {
@@ -10,6 +11,13 @@ export class LogMongoFileRepository implements LogErrorRepository {
     transports: [
       new winston.transports.File({
         filename: 'src/infra/log/logs.log'
+      }),
+      new winston.transports.MongoDB({
+        db: 'mongodb://localhost:27017/order-api',
+        options: {
+          useUnifiedTopology: true
+        },
+        collection: 'request_validation_error_logs'
       })
     ]
   }
