@@ -1,3 +1,4 @@
+import { badRequest, ok } from '../helpers/http-helper'
 import { Controller } from '../protocols/controller'
 import { HttpRequest, HttpResponse } from '../protocols/http'
 import { RequestValidator } from '../protocols/requestValidator'
@@ -12,15 +13,9 @@ export class OrderController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     const reqValidationResult = await this.requestValidator.isValid(httpRequest.body)
     if (!reqValidationResult.result) {
-      return {
-        statusCode: 400,
-        body: reqValidationResult.error
-      }
+      return badRequest(new Error(reqValidationResult.error))
     } else {
-      return {
-        statusCode: 200,
-        body: 'Everything went okay'
-      }
+      return ok('Everything went okay')
     }
   }
 }
