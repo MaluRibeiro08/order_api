@@ -1,5 +1,6 @@
-import { ItemModel, ItemsValidationResult } from '../../domain/ItemsValidator'
+import { ValidateItemModel } from '../../domain/usecases/validate-items'
+import { ItemModel } from '../../domain/models/item'
 
 export interface ValidateItemsRepository {
-  isValid: (items: ItemModel[]) => Promise<ItemsValidationResult>
+  validate: (items: ValidateItemModel[]) => Promise<ItemModel[]>
 }
