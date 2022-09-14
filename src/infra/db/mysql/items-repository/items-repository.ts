@@ -9,7 +9,7 @@ export class ItemsMySQLRepository implements ValidateItemsRepository {
 
     for (const item of items) {
       const result = await database.select().table('tbl_item').where('external_id_item', item.id)
-      const verifiedItem = result as unknown as ItemModel
+      const verifiedItem = result
       if (verifiedItem[0]) itemsValidationResult.push(verifiedItem[0])
     }
     return itemsValidationResult
