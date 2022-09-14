@@ -5,19 +5,12 @@ import database from '../../knex/helper/knex-helper'
 
 export class ItemsMySQLRepository implements ValidateItemsRepository {
   async validate (items: ValidateItemModel[]): Promise<ItemModel[]> {
-    const itemsAmount = items.length
+    const itemsValidationResult: ItemModel[] = []
 
-    let itemsValidationResult: ItemModel[]
-    // eslint-disable-next-line prefer-const
-    itemsValidationResult = []
-
-    let i = 0
-
-    while (i < itemsAmount) {
-      const result = await database.select().table('tbl_item').where('external_id_item', items[i].id)
+    for (const item of items) {
+      const result = await database.select().table('tbl_item').where('external_id_item', item.id)
       const verifiedItem = result as unknown as ItemModel
       if (verifiedItem[0]) itemsValidationResult.push(verifiedItem[0])
-      i += 1
     }
     return itemsValidationResult
   }
