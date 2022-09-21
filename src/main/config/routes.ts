@@ -1,5 +1,5 @@
 import { Express, Router } from 'express'
-import defineOrderRoutes from '../routes/signup-routes'
+import defineOrderRoutes from '../routes/registrate-order-routes'
 
 export default (app: Express): void => {
   /*
