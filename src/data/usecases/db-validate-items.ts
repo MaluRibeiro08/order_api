@@ -1,6 +1,6 @@
-import { ItemModel } from '../domain/models/item'
-import { ValidateItems, ValidateItemModel } from '../domain/usecases/validate-items'
-import { ValidateItemsRepository } from '../data/protocols/validate-items-repository'
+import { ItemModel } from '../../domain/models/item'
+import { ValidateItems, ValidateItemModel } from '../../domain/usecases/validate-items'
+import { ValidateItemsRepository } from '../protocols/validate-items-repository'
 
 export class DbValidateItems implements ValidateItems {
   private readonly validateItemsRepository: ValidateItemsRepository

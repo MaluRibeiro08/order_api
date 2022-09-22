@@ -4,7 +4,7 @@ import { Controller } from '../../presentation/protocols/controller'
 import { YupRequestValidator } from '../../utils/requestValidator'
 import { LogControllerDecorator } from '../decorators/log'
 import { ItemsMySQLRepository } from '../../infra/db/mysql/items-repository/items-repository'
-import { DbValidateItems } from '../../data/db-validate-items'
+import { DbValidateItems } from '../../data/usecases/db-validate-items'
 import { RabbitRequestConsummator } from '../../utils/requestConsummator'
 import { RabbitmqServer } from '../../utils/rabbitmq/rabbitmq_server'
 
