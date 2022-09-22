@@ -31,15 +31,9 @@ export class OrderController implements Controller {
     }
 
     // Request consummation
-    // Registrate the customer if necessary and then registrate the sale, returning its info***
-    const saleData = await this.requestConsummator.saleRegister(JSON.stringify(httpRequest.body))
+    const saleData = await this.requestConsummator.saleRegister(JSON.stringify(httpRequest.body)) // Registrate the customer if necessary and then registrate the sale | Call other service (delivery info)
+    await this.requestConsummator.saleNotifier(saleData.toString())// Notify customer about the sale registration
 
-    // Notify customer about the sale registration
-    await this.requestConsummator.saleNotifier(saleData.toString())
-
-    // Registrate sale's delivery address. Its necessary to use the sale info (its is, more specifically) besides the address info
-    const saleDeliveryRegisterData = Object.assign({}, { sale: { saleData } }, { address: httpRequest.body.address })
-    await this.requestConsummator.saleDeliveryRegister(JSON.stringify(saleDeliveryRegisterData))
     return ok('Everything went okay')
   }
 }

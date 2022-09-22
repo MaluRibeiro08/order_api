@@ -10,8 +10,4 @@ export class RabbitRequestConsummator implements RequestConsummator {
   async saleNotifier (saleData: any): Promise<boolean> {
     return await this.rabbitMqServer.publishInExchange('amq.direct', 'sale_notifier', saleData)
   }
-
-  async saleDeliveryRegister (saleAddresData: any): Promise<boolean> {
-    return await this.rabbitMqServer.publishInExchange('amq.direct', 'sale_delivery_register', saleAddresData)
-  }
 }
