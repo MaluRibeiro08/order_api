@@ -23,7 +23,7 @@ export const CustomerSchema = object().shape({
     document: string().matches(/^[0-9]{11}/, 'Document should have 11 numbers').required()
   }),
   items: array().of(object().shape({
-    id: string().matches(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i, 'Invalid item id format').required(),
+    id: string().uuid('Invalid item id format').required(),
     amount: number().positive().integer().min(1).required()
   })).required(),
   address: object().shape({
