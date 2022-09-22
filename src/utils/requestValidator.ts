@@ -4,7 +4,7 @@ import { RequestValidator, ReqValidationResult } from '../presentation/protocols
 export class YupRequestValidator implements RequestValidator {
   async isValid (reqData: string): Promise<ReqValidationResult> {
     try {
-      await CustomerSchema.validate(reqData)
+      await CustomerSchema.validate(reqData, { abortEarly: false })
       return {
         result: true
       }
