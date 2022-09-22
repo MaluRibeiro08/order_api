@@ -11,6 +11,7 @@ import { RabbitmqServer } from '../../utils/rabbitmq/rabbitmq_server'
 export const makeOrderController = (): Controller => {
   const requestValidator = new YupRequestValidator()
   const rabbitmqServer = new RabbitmqServer('amqp://guest:guest@localhost:5672')
+  void rabbitmqServer.start()
   const requestConsummator = new RabbitRequestConsummator(rabbitmqServer)
   const itemsMySQLRepository = new ItemsMySQLRepository()
   const dbValidateItems = new DbValidateItems(itemsMySQLRepository)

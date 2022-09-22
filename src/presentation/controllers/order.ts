@@ -31,8 +31,6 @@ export class OrderController implements Controller {
     }
 
     // Request consummation
-    await this.requestConsummator.startServer()
-
     // Registrate the customer if necessary and then registrate the sale, returning its info***
     const saleData = await this.requestConsummator.saleRegister(JSON.stringify(httpRequest.body))
 

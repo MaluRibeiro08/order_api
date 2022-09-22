@@ -3,11 +3,6 @@ import { RabbitmqServer } from './rabbitmq/rabbitmq_server'
 
 export class RabbitRequestConsummator implements RequestConsummator {
   constructor (private readonly rabbitMqServer: RabbitmqServer) {}
-
-  async startServer (): Promise<void> {
-    await this.rabbitMqServer.start()
-  }
-
   async saleRegister (costumerItemsData: any): Promise<boolean> {
     return await this.rabbitMqServer.publishInExchange('amq.direct', 'sale_register', costumerItemsData)
   }
