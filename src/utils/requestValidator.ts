@@ -25,7 +25,7 @@ export const CustomerSchema = object().shape({
   items: array().of(object().shape({
     id: string().uuid('Invalid item id format').required(),
     amount: number().positive().integer().min(1).required()
-  })).required(),
+  })).required().min(1),
   address: object().shape({
     zip_code: string().matches(/^[0-9]{8}/, 'Zip-code must have 8 digits and they must be numbers').required(), // /^[0-9]{5}-[0-9]{3}/
     house_number: string().required(),
