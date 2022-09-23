@@ -2,18 +2,15 @@ import { badRequest, ok } from '../helpers/http-helper'
 import { Controller } from '../protocols/controller'
 import { HttpRequest, HttpResponse } from '../protocols/http'
 import { RequestValidator } from '../protocols/requestValidator'
-import { ValidateItems } from '../../domain/usecases/validate-items'
-import { RequestConsummator } from '../protocols/requestConsummator'
+import { RegistrateOrder } from '../../domain/usecases/order-register'
 
 export class OrderController implements Controller {
+  private readonly orderRegister: RegistrateOrder
   private readonly requestValidator: RequestValidator
-  private readonly requestConsummator: RequestConsummator
-  private readonly validateItems: ValidateItems
 
-  constructor (requestValidator: RequestValidator, validateItems: ValidateItems, requestConsummator: RequestConsummator) { // No construtor, nós injetamos as dependências
+  constructor (requestValidator: RequestValidator, orderRegister: RegistrateOrder) { // No construtor, nós injetamos as dependências
     this.requestValidator = requestValidator
-    this.requestConsummator = requestConsummator
-    this.validateItems = validateItems
+    this.orderRegister = orderRegister
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -23,17 +20,7 @@ export class OrderController implements Controller {
       return badRequest(new Error(reqValidationResult.error))
     }
 
-    // Items Validation
-    const items = httpRequest.body.items
-    const validItems = await this.validateItems.validate(items)
-    if (validItems.length !== items.length) {
-      return badRequest(new Error('Invalid item(s) provided'))
-    }
-
-    // Request consummation
-    const saleData = await this.requestConsummator.saleRegister(JSON.stringify(httpRequest.body)) // Registrate the customer if necessary and then registrate the sale | Call other service (delivery info)
-    await this.requestConsummator.saleNotifier(saleData.toString())// Notify customer about the sale registration
-
+    await this.orderRegister.registrate(httpRequest.body) // If something goes wrong, it will throw
     return ok('Everything went okay')
   }
 }
