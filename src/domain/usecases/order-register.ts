@@ -1,4 +1,5 @@
 import { ValidateItemModel } from '../../domain/usecases/validate-items'
+import { HttpResponse } from '../../presentation/protocols/http'
 
 export interface RegistrateOrderModel {
   customer: {
@@ -20,5 +21,5 @@ export interface RegistrateOrderModel {
 }
 
 export interface RegistrateOrder {
-  registrate: (orderData: RegistrateOrderModel) => Promise<boolean>
+  registrate: (orderData: RegistrateOrderModel) => Promise<HttpResponse>
 }

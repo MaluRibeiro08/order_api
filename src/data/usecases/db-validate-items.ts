@@ -11,7 +11,7 @@ export class DbValidateItems implements ValidateItems {
   async validate (items: ValidateItemModel[]): Promise<boolean> {
     const validItems = await this.validateItemsRepository.validate(items)
     if (validItems.length !== items.length) {
-      throw new Error('Invalid item(s) provided')
+      return false
     }
     return true
   }

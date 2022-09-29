@@ -1,4 +1,4 @@
-import { badRequest, ok } from '../helpers/http-helper'
+import { badRequest } from '../helpers/http-helper'
 import { Controller } from '../protocols/controller'
 import { HttpRequest, HttpResponse } from '../protocols/http'
 import { RequestValidator } from '../protocols/requestValidator'
@@ -20,7 +20,6 @@ export class OrderController implements Controller {
       return badRequest(new Error(reqValidationResult.error))
     }
 
-    await this.orderRegister.registrate(httpRequest.body) // If something goes wrong, it will throw
-    return ok('Everything went okay')
+    return await this.orderRegister.registrate(httpRequest.body) // If something goes wrong, it will return the error
   }
 }
